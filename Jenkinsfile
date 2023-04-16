@@ -52,15 +52,15 @@ pipeline {
        stage('Upload Docker Image to AWS ECR') {
            steps {
 			   script {
-			      withDockerRegistry([credentialsId:'ecr:us-east-2:ecr-credentials', url:"https://562479047920.dkr.ecr.us-east-2.amazonaws.com/makemyplan"]){
+			      withDockerRegistry([credentialsId:'ecr:us-east-2:ecr-credentials', url:"https://562479047920.dkr.ecr.us-east-2.amazonaws.com/linuxacademy"]){
                  sh """
                  echo "List the docker images present in local"
                  docker images
 				  echo "Tagging the Docker Image: In Progress"
-				  docker tag makemyplan:latest 562479047920.dkr.ecr.us-east-2.amazonaws.com/makemyplan:latest
+				  docker tag linuxacademy:latest 562479047920.dkr.ecr.us-east-2.amazonaws.com/linuxacademy:latest
 				  echo "Tagging the Docker Image: Completed"
 				  echo "Push Docker Image to ECR : In Progress"
-				  docker push 562479047920.dkr.ecr.us-east-2.amazonaws.com/makemyplan:latest
+				  docker push 562479047920.dkr.ecr.us-east-2.amazonaws.com/linuxacademy:latest
 				  echo "Push Docker Image to ECR : Completed"
 				  """
 				  }
