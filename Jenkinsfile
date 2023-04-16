@@ -43,30 +43,30 @@ pipeline {
                  echo "Push Docker Image to DockerHub : In Progress"
                  sh 'docker tag 4dd91eb22d0a  ashishdalvi/makemyplan:latest'
 				 sh 'docker push ashishdalvi/makemyplan:latest'
-				 echo "Push Docker Image to DockerHub : In Progress"
+				 echo "Push Docker Image to DockerHub : completed"
 				 }
               }
             }
         }
 
-      //  stage('Upload Docker Image to AWS ECR') {
-        //    steps {
-		//	   script {
-		//	      withDockerRegistry([credentialsId:'ecr:ap-northeast-1:linuxacademy-cred', url:"https://142692870410.dkr.ecr.ap-northeast-1.amazonaws.com/linuxacademy"]){
-        //          sh """
-        //          echo "List the docker images present in local"
-        //          docker images
-		//		  echo "Tagging the Docker Image: In Progress"
-		//		  docker tag linuxacademy:latest 142692870410.dkr.ecr.ap-northeast-1.amazonaws.com/linuxacademy:latest
-		//		  echo "Tagging the Docker Image: Completed"
-		//		  echo "Push Docker Image to ECR : In Progress"
-		//		  docker push 142692870410.dkr.ecr.ap-northeast-1.amazonaws.com/linuxacademy:latest
-		//		  echo "Push Docker Image to ECR : Completed"
-		//		  """
-		//		  }
-        //        }
-        //    }
-		//}
+       stage('Upload Docker Image to AWS ECR') {
+           steps {
+			   script {
+			      withDockerRegistry([credentialsId:'ecr:us-east-2:ecr-credentials', url:"https://562479047920.dkr.ecr.us-east-2.amazonaws.com/makemyplan"]){
+                 sh """
+                 echo "List the docker images present in local"
+                 docker images
+				  echo "Tagging the Docker Image: In Progress"
+				  docker tag makemyplan:latest 562479047920.dkr.ecr.us-east-2.amazonaws.com/makemyplan:latest
+				  echo "Tagging the Docker Image: Completed"
+				  echo "Push Docker Image to ECR : In Progress"
+				  docker push 562479047920.dkr.ecr.us-east-2.amazonaws.com/makemyplan:latest
+				  echo "Push Docker Image to ECR : Completed"
+				  """
+				  }
+               }
+           }
+		}
         stage('Upload the docker Image to Nexus') {
             steps {
                 sh 'date;date;date'
